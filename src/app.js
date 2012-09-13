@@ -15,11 +15,11 @@ Mastermind.Turn = Backbone.Model.extend({
 		id: -1,
 		code: ['hole', 'hole', 'hole', 'hole'],
 		hint_string: '&middot;&middot;&middot;',
-		// presentation
-		alt_class: '',
+		alt_class: '', 	// presentation
 		disabled_class: 'disabled', // for the guess button
 		locked_class: ' locked',
-		button_text: 'reveal code' // for the solution view
+		// for the solution view
+		button_text: 'reveal code' 
 	}
 });
 
@@ -27,7 +27,7 @@ Mastermind.Turn_collection = Backbone.Collection.extend({
 	model: Mastermind.Turn,
 
 	initialize: function () {
-		this.on('reset', this.was_reset);
+		/* */
 	}
 
 });
@@ -70,7 +70,7 @@ Mastermind.Turn_view = Backbone.View.extend({
 	},
 
 	placePiece: function (color, place) {
-		log('place piece',color,place);
+		// log('place piece',color,place);
 		if (color !== 'zero') {
 			var code_array = this.model.get('code').slice(0);
 
@@ -302,6 +302,7 @@ Mastermind.Game_view = Backbone.View.extend({
 
 		for(var i = 0; i < this.turns.length; i += 1) {
 			html_els_array.push(this.turn_views[i].render());
+			// this.turns.at(i).set('',0);
 		}
 		$(this.board_el).html(html_els_array);
 	},
@@ -332,7 +333,7 @@ Mastermind.Game_view = Backbone.View.extend({
 				this.allPiecesView.setNub(key_obj.k); 
 			}
 			if (typeof key_obj.k === 'number') { 
-				log('keyPressed',this.allPiecesView.getNub(), key_obj.k);
+				// log('keyPressed',this.allPiecesView.getNub(), key_obj.k);
 				cur_turn_view.placePiece(this.allPiecesView.getNub(), key_obj.k);
 			}
 		} else {

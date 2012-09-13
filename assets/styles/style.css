@@ -53,7 +53,7 @@ div.correct {
 	border:1px solid #0F0;
 }
 div.frozen {
-	border: 1px solid #FFF;
+	border: 1px solid #000;
 }
 span.guess {
 	margin-right:10px;
