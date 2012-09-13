@@ -1,5 +1,4 @@
-var jq = jQuery.noConflict(),
-	Mastermind = {
+var Mastermind = {
 
 		colors: ['one', 'two', 'three', 'four', 'five', 'six'],
 
@@ -61,7 +60,7 @@ Mastermind.Turn_view = Backbone.View.extend({
 	},
 
 	render: function () {
-		var turn_template = jq(this.template).html(),
+		var turn_template = $(this.template).html(),
 			turn_html = '';
 
 		turn_html = _.template(turn_template, this.model.toJSON());
@@ -70,7 +69,7 @@ Mastermind.Turn_view = Backbone.View.extend({
 		return this.el;
 	},
 
-	placePiece: function (color, place) { // ***
+	placePiece: function (color, place) {
 		log('place piece',color,place);
 		if (color !== 'zero') {
 			var code_array = this.model.get('code').slice(0);
@@ -80,18 +79,9 @@ Mastermind.Turn_view = Backbone.View.extend({
 			Mastermind.GameView.allPiecesView.resetNub();
 		}
 	},
-	/*
-	arrayify: function (guess_string) {
-		var guess_array = guess_string.split('');
-
-		// convert strings to numbers
-		for (var i = 0; i < guess_array.length; i += 1) {
-			guess_array[i] = parseInt(guess_array[i], 10);
-		}
-		return guess_array;
-	}, */
+	
 	holeClicked: function (e) {
-		var hole_index = jq(e.currentTarget).attr('id'),
+		var hole_index = $(e.currentTarget).attr('id'),
 			color_class = Mastermind.GameView.allPiecesView.getNub();
 		this.placePiece(color_class, hole_index);
 	},
@@ -116,7 +106,7 @@ Mastermind.Turn_view = Backbone.View.extend({
 	},
 
 	guessClicked: function (e) {
-		var enabled = !jq(e.currentTarget).hasClass('disabled');
+		var enabled = !$(e.currentTarget).hasClass('disabled');
 		if (enabled) {
 			this.goGuess();
 		}
@@ -167,7 +157,7 @@ Mastermind.Solution_view = Backbone.View.extend({
 	},
 
 	render: function () {
-		var solution_template = jq(this.template).html();
+		var solution_template = $(this.template).html();
 			solution_html = _.template(solution_template, this.model.toJSON());
 
 		this.$el.html(solution_html);
@@ -176,7 +166,6 @@ Mastermind.Solution_view = Backbone.View.extend({
 
 	setSolved: function (game_won) {
 		var end_text = (game_won) ? 'you won! :D' : 'you lost!!!';
-		// log('game over!',end_text);
 		this.model.set('button_text','New Game');
 		this.model.set('locked_class','');
 	},
@@ -222,11 +211,11 @@ Mastermind.AllPieces_view = Backbone.View.extend({
 
 	render: function () {
 		var nub_copy = _.template(this.piece_template, this.model.attributes);
-		jq(this.cur_piece_el).html(nub_copy);
+		$(this.cur_piece_el).html(nub_copy);
 	},
 
 	nubClick: function (e) {
-		var classes_string = jq(e.currentTarget).attr('class'),
+		var classes_string = $(e.currentTarget).attr('class'),
 			classes_array = classes_string.split(' '),
 			nub_class = classes_array[2]; // this is a hack
 
@@ -252,7 +241,6 @@ Mastermind.AllPieces_view = Backbone.View.extend({
 *************************************************************************************************/
 Mastermind.Game = Backbone.Model.extend({
 	defaults: {
-		// id:-1,
 		num_turns: 10,
 		turns_remaining: 10,
 		win: undefined
@@ -280,8 +268,8 @@ Mastermind.Game_view = Backbone.View.extend({
 
 		this.model.on('change:win',this.gameOver,this);
 
-		jq(document).off('keydown'); // make sure not to attach the listener twice
-		jq(document).on('keydown',this.keyPressed); // catch all keypresses
+		$(document).off('keydown'); // make sure not to attach the listener twice
+		$(document).on('keydown',this.keyPressed); // catch all keypresses
 	},
 
 	resetBoard: function () {
@@ -302,7 +290,7 @@ Mastermind.Game_view = Backbone.View.extend({
 			this.turn_views.push(cur_turn);
 		}
 		
-		jq(this.gameOver_el).attr('class',''); // reset the game over message
+		$(this.gameOver_el).attr('class',''); // reset the game over message
 		this.turns.reset(turns_array);
 
 		this.render();
@@ -315,7 +303,7 @@ Mastermind.Game_view = Backbone.View.extend({
 		for(var i = 0; i < this.turns.length; i += 1) {
 			html_els_array.push(this.turn_views[i].render());
 		}
-		jq(this.board_el).html(html_els_array);
+		$(this.board_el).html(html_els_array);
 	},
 
 	keyPressed: function (e) {
@@ -383,11 +371,10 @@ Mastermind.Game_view = Backbone.View.extend({
 				}
 			}
 		}
-		// log('* checking:', guess_copy, 'against:',solution_copy,', spot on:',num_black,', color only:',num_white);
 		this.handleResults(num_black,num_white);
 	},
 
-	handleResults: function (num_black,num_white) { // ***
+	handleResults: function (num_black,num_white) {
 
 		// display the hints / do next turn
 		hint_string = '<p class="hint b">' + num_black + '</p><p class="hint w">' + num_white + '</p>';
@@ -439,11 +426,11 @@ Mastermind.Game_view = Backbone.View.extend({
 		this.solutionView.setSolved(you_won);
 		if (you_won) {
 			this.getPreviousTurn().set('locked_class', 'correct');
-			jq(this.gameOver_el).text('you won!');
-			jq(this.gameOver_el).addClass('win');
+			$(this.gameOver_el).text('you won!');
+			$(this.gameOver_el).addClass('win');
 		} else {
-			jq(this.gameOver_el).text('you lost.');
-			jq(this.gameOver_el).addClass('lose');
+			$(this.gameOver_el).text('you lost.');
+			$(this.gameOver_el).addClass('lose');
 		}
 	},
 
@@ -452,6 +439,6 @@ Mastermind.Game_view = Backbone.View.extend({
 	}
 });
 
-jq(function () {
+$(function () {
 	Mastermind.init();
 });
