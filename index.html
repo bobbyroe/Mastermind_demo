@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mastermind</title>
+<link rel="stylesheet" type="text/css" href="assets/styles/style.css">
+<script src="assets/js_libs/jquery-1.8.1.min.js"></script>
+<script src="assets/js_libs/underscore.js"></script>
+<script src="assets/js_libs/backbone.js"></script>
+<script src="assets/js_libs/backbone.localStorage.js"></script>
+<script src="src/app.js"></script>
+</head>
+<body>    
+    <div id="current_piece"></div>
+    <div id="game">
+        <div id="gameOver"></div>
+        <ul id="board">
+            <!-- game goes here -->
+        </ul>
+    </div>
+    <div id="allPieces">
+        <div class="pieces">
+            <div class="piece nub one"></div>
+            <div class="piece nub two"></div>
+            <div class="piece nub three"></div>
+            <div class="piece nub four"></div>
+            <div class="piece nub five"></div>
+            <div class="piece nub six"></div>
+        </div>
+    </div>
+    
+    <!-- templates -->
+    <script type="text/template" id="turnView">
+        <div class="turn <%= alt_class %> <%= locked_class %>" id="<%= id %>">
+            
+            <input class="go <%= disabled_class %>" type="submit" value="guess"/>
+            <div class="pieces">
+                <% _.each(code, function(p,i) { %><div class="piece <%= p %>" id="<%= i %>"></div><% }); %>
+            </div>
+            <span class="hint"><%= hint_string %></span> 
+        </div>
+    </script>
+
+    <script type="text/template" id="solutionView">
+        <div class="turn" id="solution">
+        
+        <div class="pieces <%= locked_class %>">
+            <% _.each(code, function(p,i) { %><div class="piece <%= p %>" id="<%= i %>"></div><% }); %>
+        </div>
+        <input id="reveal" type="submit" value="<%= button_text %>"/>
+        </div>
+    </script>
+</body>
+</html>

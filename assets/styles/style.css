@@ -1,0 +1,220 @@
+/********************************************************************** *
+** MASTERMIND
+* ***********************************************************************/
+* { 
+	margin:0;
+	padding:0;
+	-moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box; 
+}
+body {
+	padding:0;
+	margin:0;
+	font-size:16px;
+	font-family:Helvetica, Arial, sans-serif;
+	background-color: #101010;
+	color:#e0e0e0;
+}
+div#header {
+	width:400px;
+	padding:0 10px 0 0;
+	margin:20px auto 0;
+	text-align: center;
+	background-color: #222;
+}
+h1 {
+	font:bold 4em Helvetica;
+	color:#BBB;
+}
+div#game {
+	width:400px;
+	position:relative;
+	margin:0px auto;
+	height:auto;
+	background-color: #000;
+}
+ul {
+	list-style:none; 
+}
+div.turn {
+	width:100%;
+	padding:10px;
+	height:50px;
+	background-color: #555;
+}
+div.turn.alt {
+	background-color: #666;
+}
+div.locked {
+	opacity: 0.3;
+}
+div.correct {
+	border:1px solid #0F0;
+}
+div.frozen {
+	border: 1px solid #FFF;
+}
+span.guess {
+	margin-right:10px;
+}
+
+/* peg piece holes */
+div.pieces { 
+	float:none;
+	display: inline;
+}
+div.piece {
+	width:30px;
+	margin-right:15px;
+	height: 30px;
+	float:left;
+	border:1px solid #000;
+	background-color: #000;
+	-webkit-border-radius: 15px;
+}
+div.piece.hole, div.piece.nub.zero { /* redundant def */
+	border-color: #000;
+	background-image: -webkit-radial-gradient(95% 95%, circle cover, #404040, #000 100%);
+}
+div.piece.nub.one {
+	border-color: #090;
+	background-image: -webkit-radial-gradient(5% 5%, circle cover, #0F4, #020 100%);
+}
+div.piece.nub.two {
+	border-color: #900;
+	background-image: -webkit-radial-gradient(5% 5%, circle cover, #F30, #200 100%);
+}
+div.piece.nub.three {
+	border-color: #009;
+	background-image: -webkit-radial-gradient(5% 5%, circle cover, #09F, #002 100%);
+}
+div.piece.nub.four {
+	border-color: #990;
+	background-image: -webkit-radial-gradient(5% 5%, circle cover, #FF0, #220 100%);
+}
+div.piece.nub.five {
+	border-color: #90F;
+	background-image: -webkit-radial-gradient(5% 5%, circle cover, #90F, #102 100%);
+}
+div.piece.nub.six {
+	border-color: #940;
+	background-image: -webkit-radial-gradient(5% 5%, circle cover, #F90, #210 100%);
+}
+div#allPieces {
+	width:400px;
+	position:absolute;
+	padding:0 0 0 90px;
+	margin:0 0 0 25%;
+	height:35px;
+	bottom:-10px;
+}
+div#current_piece {
+	top:20px;
+	position:absolute;
+	left:5%;
+}
+div#gameOver {
+	width:100%;
+	top:124px;
+	text-align: center;
+	position:absolute;
+	padding:20px 0;
+	left:0;
+	height:80.1%;
+	font-size:3em;
+	display:none;
+}
+div#gameOver.lose {
+	display: block;
+	color:#F00;
+	background-color: rgba(64,0,0,0.9);
+}
+div#gameOver.win {
+	display:block;
+	color:#0F0;
+	background-color: rgba(0,64,0,0.9);
+}
+/* guess button */
+input.go {
+	width:60px;
+	text-transform: uppercase;
+	margin-left:10px;
+	height:28px;
+    font-weight:bold;
+    font-size:0.8em;
+    cursor: pointer;
+    color:#E0E0E0;
+    background-color:#2d79b1;
+    border:none;
+    -webkit-border-radius: 4px;
+}
+input.go:hover {
+	color:#FFF;
+    background-color:#20557c;
+}
+input.go.disabled {
+	color:#a0a0a0;
+    background-color:#808080;
+}
+input.go.hidden {
+	display:none;
+}
+span.hint {
+	font-size: 1.5em;
+	float:right;
+}
+p.hint {
+	margin-left:10px;
+	display:inline;
+}
+p.b {
+	color:#000;
+}
+p.w {
+	color:#FFF;
+}
+span.hint.done { /* unused */
+	color:#FFF;
+}
+div.turn#solution {
+	width:100%;
+	font-size: 1.5em;
+	background-color: #000;
+	border:1px #555 solid;
+}
+div.turn#solution div.pieces.hidden { /* solution */
+	display: none;
+}
+input#reveal {
+	width:120px;
+	text-transform: uppercase;
+	height:28px;
+    font-weight:bold;
+    font-size:0.6em;
+    float:right;
+    cursor: pointer;
+    color:#E0E0E0;
+    background-color:#2d79b1;
+    border:none;
+    /* border:4px #5fa8d6 solid; */
+    -webkit-border-radius: 4px;
+}
+input#reveal:hover {
+	color:#FFF;
+    background-color:#20557c;
+    border-color:#4880a3;
+}
+/*    */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+
+
