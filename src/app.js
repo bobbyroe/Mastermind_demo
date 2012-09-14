@@ -102,6 +102,8 @@ Mastermind.Turn_view = Backbone.View.extend({
 		if (this.codeIsValid()) {
 			// remove the disabled class from the guess button
 			this.model.set('disabled_class', '');
+		} else {
+			this.render();
 		}
 	},
 
