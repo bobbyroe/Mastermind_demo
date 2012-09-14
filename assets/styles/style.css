@@ -135,6 +135,11 @@ div#gameOver.win {
 	color:#0F0;
 	background-color: rgba(0,64,0,0.9);
 }
+div#presentation {
+	width:300px;
+	text-align:center;
+	margin:0 auto;
+}
 /* guess button */
 input.go {
 	width:60px;
