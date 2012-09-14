@@ -56,7 +56,7 @@ Mastermind.Turn_view = Backbone.View.extend({
 
 		this.model.on('change:hint_string', this.render);
 		this.model.on('change:locked_class', this.render);
-		this.model.on('change:code', this.render);
+		// this.model.on('change:code', this.render);
 	},
 
 	render: function () {
